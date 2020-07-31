@@ -5,6 +5,7 @@ import sys
 from turf.basic.grass_turf import GrassTurf
 from characters.main.main_character import MainCharacter
 from components.screen_components import ScreenComponents
+from objects.object_generator import generate_gem_objects
 
 pygame.init()
 
@@ -28,14 +29,8 @@ for x in range(0, 60):
 
 main_character = MainCharacter()
 ScreenComponents().add_screen_component(main_character)
+generate_gem_objects(5)
 
 while 1:
     ScreenComponents().run_events()
-    """
-    ballrect = ballrect.move(speed)
-    if ballrect.left < 0 or ballrect.right > width:
-        speed[0] = -speed[0]
-    if ballrect.top < 0 or ballrect.bottom > height:
-        speed[1] = -speed[1]
-    """
     ScreenComponents().render_components()

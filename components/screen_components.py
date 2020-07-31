@@ -1,4 +1,5 @@
 from turf.turf_base import TurfBase
+from objects.object_base import ObjectBase
 
 import pygame
 
@@ -32,11 +33,21 @@ class ScreenComponents:
     def add_screen_component(self, component):
         self.instance.components.append(component)
 
+    def remove_screen_component(self, id):
+        new_components = []
+        for comp in self.instance.components:
+            if comp.id != id:
+                new_components.append(comp)
+        self.instance.components = new_components
+
     def get_screen_size(self):
         return self.instance.height, self.instance.width
 
     def set_screen(self, screen):
         self.instance.screen = screen
+
+    def get_components(self):
+        return self.instance.components
 
     def render_components(self):
         if not self.instance or not self.instance.screen:
@@ -45,6 +56,8 @@ class ScreenComponents:
         sorted_layers = sorted(self.instance.components, key=lambda comp: comp.get_layer())
         for comp in sorted_layers:
             if isinstance(comp, TurfBase):
+                self.instance.screen.blit(comp.image.convert(), (comp.x_coordinate, comp.y_coordinate))
+            elif isinstance(comp, ObjectBase):
                 self.instance.screen.blit(comp.image.convert(), (comp.x_coordinate, comp.y_coordinate))
             else:
                 self.instance.screen.blit(comp.image, comp.rect)
