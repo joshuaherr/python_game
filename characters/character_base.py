@@ -27,7 +27,6 @@ class CharacterBase:
         self.sub_layer = layer
 
     def move_down(self):
-        print("Moving down.")
         speed_check = self.rect.bottom + (self.speed * PIXEL_MOVEMENT)
         height = ScreenComponents().get_screen_size()[0]
         if not speed_check > height:
@@ -36,7 +35,6 @@ class CharacterBase:
             self.rect = self.rect.move(move_speed)
 
     def move_up(self):
-        print("Moving Up.")
         speed_check = self.rect.top + (self.speed * -PIXEL_MOVEMENT)
         if not speed_check < 0:
             up_speed = self.speed * -PIXEL_MOVEMENT
@@ -44,7 +42,6 @@ class CharacterBase:
             self.rect = self.rect.move(move_speed)
 
     def move_right(self):
-        print("Moving right.")
         speed_check = self.rect.right + (self.speed * PIXEL_MOVEMENT)
         width = ScreenComponents().get_screen_size()[1]
         if not speed_check > width:
@@ -53,7 +50,6 @@ class CharacterBase:
             self.rect = self.rect.move(move_speed)
 
     def move_left(self):
-        print("Moving left.")
         speed_check = self.rect.left + (self.speed * -PIXEL_MOVEMENT)
         if not speed_check < 0:
             left_speed = self.speed * -PIXEL_MOVEMENT

@@ -1,6 +1,8 @@
 from turf.turf_base import TurfBase
 from objects.object_base import ObjectBase
 
+import copy
+
 import pygame
 
 import sys
@@ -19,6 +21,7 @@ class ScreenComponents:
             self.width = 0
             self.components = []
             self.screen = None
+            self.key_down = None
 
     instance = None
 
@@ -64,10 +67,19 @@ class ScreenComponents:
         pygame.display.flip()
 
     def run_events(self):
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                print(f"Event: {event}")
-            if event.type == pygame.QUIT:
-                sys.exit()
+        events = pygame.event.get()
+        if len(events) > 0:
+            for event in events:
+                if event.type == pygame.KEYDOWN:
+                    print(f"Key Down: {event}")
+                    self.instance.key_down = event
+                if event.type == pygame.KEYUP and event.key == self.instance.key_down.key:
+                    print(f"Key Up: {event}")
+                    self.instance.key_down = None
+                if event.type == pygame.QUIT:
+                    sys.exit()
+                for comp in self.instance.components:
+                    comp.handle_event(event)
+        elif self.instance.key_down:
             for comp in self.instance.components:
-                comp.handle_event(event)
+                comp.handle_event(self.instance.key_down)

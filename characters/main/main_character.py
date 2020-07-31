@@ -41,9 +41,6 @@ class MainCharacter(CharacterBase):
                     if self.is_movement_allowed():
                         self.move_down()
                         self.update_image_movement()
-                    else:
-                        print("Cannot move there!")
-                        return
                 else:
                     self.character_direction = Directions.DOWN
                     self.movement_state = MovementStates.MOVE_DOWN_STAND
@@ -55,9 +52,6 @@ class MainCharacter(CharacterBase):
                     if self.is_movement_allowed():
                         self.move_right()
                         self.update_image_movement()
-                    else:
-                        print("Cannot move there!")
-                        return
                 else:
                     self.character_direction = Directions.RIGHT
                     self.movement_state = MovementStates.MOVE_RIGHT_STAND
@@ -69,9 +63,6 @@ class MainCharacter(CharacterBase):
                     if self.is_movement_allowed():
                         self.move_up()
                         self.update_image_movement()
-                    else:
-                        print("Cannot move there!")
-                        return
                 else:
                     self.character_direction = Directions.UP
                     self.movement_state = MovementStates.MOVE_UP_STAND
@@ -83,9 +74,6 @@ class MainCharacter(CharacterBase):
                     if self.is_movement_allowed():
                         self.move_left()
                         self.update_image_movement()
-                    else:
-                        print("Cannot move there!")
-                        return
                 else:
                     self.character_direction = Directions.LEFT
                     self.movement_state = MovementStates.MOVE_LEFT_STAND
@@ -166,11 +154,8 @@ class MainCharacter(CharacterBase):
         for comp in ScreenComponents().get_components():
             if comp.density > 0 and comp.id != self.id:
                 relevant_comps.append(comp)
-        print(f"Density Components: {len(relevant_comps)}")
         screen_rects = [comp.rect for comp in relevant_comps]
-        print(f"Rectangles: {len(screen_rects)}")
         collisions = rect_copy.collidelist(screen_rects)
-        print(f"Collisions: {collisions}")
         if collisions == -1:
             return True
         else:
