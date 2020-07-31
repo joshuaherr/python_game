@@ -4,6 +4,8 @@ import pygame
 
 import sys
 
+class_instance = None
+
 
 class ScreenComponents:
     """Screen Components for the code."""
@@ -20,8 +22,8 @@ class ScreenComponents:
     instance = None
 
     def __init__(self):
-        if not self.instance:
-            self.instance = ScreenComponents.__ScreenComponentsSingleton()
+        if not ScreenComponents.instance:
+            ScreenComponents.instance = ScreenComponents.__ScreenComponentsSingleton()
 
     def set_screen_size(self, height, width):
         self.instance.height = height
@@ -45,13 +47,13 @@ class ScreenComponents:
             if isinstance(comp, TurfBase):
                 self.instance.screen.blit(comp.image.convert(), (comp.x_coordinate, comp.y_coordinate))
             else:
-                print(f"Rect: {comp.rect}")
                 self.instance.screen.blit(comp.image, comp.rect)
         pygame.display.flip()
 
     def run_events(self):
         for event in pygame.event.get():
-            print(f"Event: {event}")
+            if event.type == pygame.KEYDOWN:
+                print(f"Event: {event}")
             if event.type == pygame.QUIT:
                 sys.exit()
             for comp in self.instance.components:

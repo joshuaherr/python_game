@@ -12,9 +12,8 @@ size = width, height = 960, 960
 
 screen = pygame.display.set_mode(size)
 
-screen_components = ScreenComponents()
-screen_components.set_screen(screen)
-screen_components.set_screen_size(height, width)
+ScreenComponents().set_screen(screen)
+ScreenComponents().set_screen_size(height, width)
 
 pygame.display.set_caption("First Game Attempt.")
 
@@ -25,13 +24,13 @@ for x in range(0, 60):
         temp_y = y * 16
         temp_grass = GrassTurf()
         temp_grass.set_coordinates(temp_x, temp_y)
-        screen_components.add_screen_component(temp_grass)
+        ScreenComponents().add_screen_component(temp_grass)
 
 main_character = MainCharacter()
-screen_components.add_screen_component(main_character)
+ScreenComponents().add_screen_component(main_character)
 
 while 1:
-    screen_components.run_events()
+    ScreenComponents().run_events()
     """
     ballrect = ballrect.move(speed)
     if ballrect.left < 0 or ballrect.right > width:
@@ -39,4 +38,4 @@ while 1:
     if ballrect.top < 0 or ballrect.bottom > height:
         speed[1] = -speed[1]
     """
-    screen_components.render_components()
+    ScreenComponents().render_components()

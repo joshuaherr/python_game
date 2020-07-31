@@ -61,7 +61,6 @@ class MainCharacter(CharacterBase):
                     self.image = pygame.image.load(str(get_move_left_stand_image()))
 
     def update_image_movement(self):
-        print(f"Movement state: {self.movement_state}")
         if self.movement_state == MovementStates.MOVE_DOWN_STAND:
             self.image = pygame.image.load(str(get_move_down_right_foot_image()))
             self.movement_state = MovementStates.MOVE_DOWN_RIGHT_FOOT
