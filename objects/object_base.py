@@ -15,6 +15,7 @@ class ObjectBase:
         self.x_coordinate = 0
         self.y_coordinate = 0
         self.density = 1
+        self.original_density = self.density
 
     def get_layer(self):
         return self.OBJECT_LAYER + self.sub_layer

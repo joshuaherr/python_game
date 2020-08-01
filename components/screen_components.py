@@ -42,6 +42,13 @@ class ScreenComponents:
                 new_components.append(comp)
         self.instance.components = new_components
 
+    def find_component(self, id):
+        found_comp = [comp for comp in self.instance.components if comp.id == id]
+        if len(found_comp) > 0:
+            return found_comp[0]
+        else:
+            return None
+
     def get_screen_size(self):
         return self.instance.height, self.instance.width
 
@@ -72,6 +79,7 @@ class ScreenComponents:
         events = pygame.event.get()
         if len(events) > 0:
             for event in events:
+                # print(f"Event: {event}")
                 if event.type == pygame.KEYDOWN:
                     print(f"Key Down: {event}")
                     if event.key in movement_keys:

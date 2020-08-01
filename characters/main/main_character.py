@@ -29,7 +29,7 @@ class MainCharacter(CharacterBase):
         self.character_direction = Directions.DOWN
         self.can_move = True
         self.is_inventory_open = False
-        self.inventory = CharacterInventory()
+        self.inventory = CharacterInventory(self.id)
         self.health = 100
 
     def handle_event(self, event):
@@ -142,17 +142,21 @@ class MainCharacter(CharacterBase):
             self.movement_state = MovementStates.MOVE_LEFT_RIGHT_FOOT
             return
 
-    def is_movement_allowed(self):
-        speed_check = 4 * self.speed
+    def get_rect_in_front(self, offset=0):
+        check = (4 * self.speed) + offset
         rect_copy = copy.copy(self.rect)
         if self.character_direction == Directions.DOWN:
-            rect_copy.bottom = self.rect.bottom + speed_check
+            rect_copy.bottom = self.rect.bottom + check
         if self.character_direction == Directions.UP:
-            rect_copy.top = self.rect.top - speed_check
+            rect_copy.top = self.rect.top - check
         if self.character_direction == Directions.LEFT:
-            rect_copy.left = self.rect.left - speed_check
+            rect_copy.left = self.rect.left - check
         if self.character_direction == Directions.RIGHT:
-            rect_copy.right = self.rect.right + speed_check
+            rect_copy.right = self.rect.right + check
+        return rect_copy
+
+    def is_movement_allowed(self):
+        rect_copy = self.get_rect_in_front()
         dense_comps = ScreenComponents().get_dense_components()
         dense_without_char_rects = [comp.rect for comp in dense_comps if comp.id != self.id]
         collisions = rect_copy.collidelist(dense_without_char_rects)
@@ -162,16 +166,7 @@ class MainCharacter(CharacterBase):
             return False
 
     def get_object(self):
-        object_check = 4 * self.speed
-        rect_copy = copy.copy(self.rect)
-        if self.character_direction == Directions.DOWN:
-            rect_copy.bottom = self.rect.bottom + object_check
-        if self.character_direction == Directions.UP:
-            rect_copy.top = self.rect.top - object_check
-        if self.character_direction == Directions.LEFT:
-            rect_copy.left = self.rect.left - object_check
-        if self.character_direction == Directions.RIGHT:
-            rect_copy.right = self.rect.right + object_check
+        rect_copy = self.get_rect_in_front()
         dense_comps = ScreenComponents().get_dense_components()
         dense_without_char = [comp for comp in dense_comps if comp.id != self.id]
         dense_without_char_rects = [comp.rect for comp in dense_without_char]
