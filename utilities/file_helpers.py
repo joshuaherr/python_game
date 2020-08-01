@@ -39,3 +39,7 @@ def get_npcs_path():
 
 def get_shopkeeper_path():
     return get_npcs_path() / "shopkeeper"
+
+
+def get_hud_text_path():
+    return get_hud_screen_path() / "text"

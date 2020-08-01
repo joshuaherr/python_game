@@ -17,6 +17,7 @@ from characters.main.main_character_constants import (
 from components.screen_components import ScreenComponents
 from characters.main.inventory import CharacterInventory
 from objects.object_base import ObjectBase
+from objects.HUD.text.text_screen import TextScreen
 import copy
 import pygame
 
@@ -186,5 +187,19 @@ class MainCharacter(CharacterBase):
         print(f"Got item: {other_object}")
 
     def do_action(self):
-        return
+        rect_copy = self.get_rect_in_front()
+        dense_comps = ScreenComponents().get_dense_components()
+        dense_without_char = [comp for comp in dense_comps if comp.id != self.id]
+        dense_without_char_rects = [comp.rect for comp in dense_without_char]
+        collisions = rect_copy.collidelist(dense_without_char_rects)
+        if collisions == -1:
+            return
+        npc = dense_without_char[collisions]
+        if not isinstance(npc, CharacterBase):
+            return
+        if npc.has_text:
+            text = npc.get_text()
+            text_screen = TextScreen(self.id)
+            text_screen.set_text_characters(text)
+            text_screen.write_characters()
 

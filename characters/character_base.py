@@ -20,6 +20,7 @@ class CharacterBase:
         self.id = uuid.uuid4()
         self.health = 1
         self.money = 0
+        self.has_text = False
 
     def get_layer(self):
         return self.CHAR_LAYER + self.sub_layer
