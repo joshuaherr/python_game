@@ -1,11 +1,10 @@
 import pygame
 
-import sys
-
 from turf.basic.grass_turf import GrassTurf
 from characters.main.main_character import MainCharacter
 from components.screen_components import ScreenComponents
 from objects.object_generator import generate_gem_objects
+from characters.npcs.shopkeeper import ShopKeeper
 
 pygame.init()
 
@@ -29,6 +28,9 @@ for x in range(0, 60):
 
 main_character = MainCharacter()
 ScreenComponents().add_screen_component(main_character)
+shopkeeper = ShopKeeper()
+shopkeeper.set_coordinates(400, 0)
+ScreenComponents().add_screen_component(shopkeeper)
 generate_gem_objects(15)
 
 while 1:

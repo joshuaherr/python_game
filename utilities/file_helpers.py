@@ -31,3 +31,11 @@ def get_object_path():
 
 def get_gem_object_path():
     return get_object_path() / "gems"
+
+
+def get_npcs_path():
+    return get_characters_path() / "npcs"
+
+
+def get_shopkeeper_path():
+    return get_npcs_path() / "shopkeeper"

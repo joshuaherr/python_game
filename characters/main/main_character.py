@@ -16,6 +16,7 @@ from characters.main.main_character_constants import (
 )
 from components.screen_components import ScreenComponents
 from characters.main.inventory import CharacterInventory
+from objects.object_base import ObjectBase
 import copy
 import pygame
 
@@ -91,6 +92,9 @@ class MainCharacter(CharacterBase):
                 if len(self.inventory.inventory_items) >= 9:
                     return
                 self.get_object()
+            elif event.key == 32:
+                # space bar pressed (action button)
+                self.do_action()
 
     def update_image_movement(self):
         if self.movement_state == MovementStates.MOVE_DOWN_STAND:
@@ -174,8 +178,13 @@ class MainCharacter(CharacterBase):
         if collisions == -1:
             return
         other_object = dense_without_char[collisions]
+        if not isinstance(other_object, ObjectBase):
+            return
         other_object.set_layer(101)
         self.inventory.add_item(other_object)
         ScreenComponents().remove_screen_component(other_object.id)
         print(f"Got item: {other_object}")
+
+    def do_action(self):
+        return
 

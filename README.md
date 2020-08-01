@@ -11,6 +11,10 @@ The code is generally split into 4 categories:
 * objects - this represents any type of object in the game
 * turf - this represents landscape, background images, etc.
 
+Feel free to fork or use this repo. Eventually I may create a pip package.
+
+No attribution necessary, though please attribute the credits below for the icons.
+
 ## usage ##
 
 * `pip install pygame`
