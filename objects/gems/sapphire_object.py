@@ -10,3 +10,6 @@ class SapphireObject(ObjectBase):
         super().__init__(1, str(image_path))
         self.price = 70
         self.weight = 2
+
+    def __str__(self):
+        return "Sapphire"

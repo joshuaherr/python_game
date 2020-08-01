@@ -29,7 +29,7 @@ for x in range(0, 60):
 
 main_character = MainCharacter()
 ScreenComponents().add_screen_component(main_character)
-generate_gem_objects(5)
+generate_gem_objects(15)
 
 while 1:
     ScreenComponents().run_events()

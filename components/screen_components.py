@@ -1,7 +1,6 @@
 from turf.turf_base import TurfBase
 from objects.object_base import ObjectBase
-
-import copy
+from components.component_constants import movement_keys
 
 import pygame
 
@@ -52,6 +51,9 @@ class ScreenComponents:
     def get_components(self):
         return self.instance.components
 
+    def get_dense_components(self):
+        return [comp for comp in self.instance.components if comp.density > 0]
+
     def render_components(self):
         if not self.instance or not self.instance.screen:
             print("Screen Components are not properly initialized.")
@@ -72,9 +74,9 @@ class ScreenComponents:
             for event in events:
                 if event.type == pygame.KEYDOWN:
                     print(f"Key Down: {event}")
-                    self.instance.key_down = event
-                if event.type == pygame.KEYUP and event.key == self.instance.key_down.key:
-                    print(f"Key Up: {event}")
+                    if event.key in movement_keys:
+                        self.instance.key_down = event
+                if event.type == pygame.KEYUP and self.instance.key_down and event.key == self.instance.key_down.key:
                     self.instance.key_down = None
                 if event.type == pygame.QUIT:
                     sys.exit()

@@ -1,6 +1,7 @@
 import pygame
 import uuid
 
+
 class ObjectBase:
     """Base class for all objects."""
 
@@ -17,6 +18,9 @@ class ObjectBase:
 
     def get_layer(self):
         return self.OBJECT_LAYER + self.sub_layer
+
+    def set_layer(self, layer):
+        self.sub_layer = layer
 
     def set_coordinates(self, x, y):
         self.x_coordinate = x

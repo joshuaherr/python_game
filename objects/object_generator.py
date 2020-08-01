@@ -10,8 +10,8 @@ def generate_gem_objects(number_of_objects):
     lower_height_bound = 32
     lower_width_bound = 32
     screen_height, screen_width = ScreenComponents().get_screen_size()
-    upper_height_bound = int((screen_height - 32) / 3)
-    upper_width_bound = int((screen_width - 32) / 3)
+    upper_height_bound = (screen_height - 32)
+    upper_width_bound = (screen_width - 32)
     for i in range(0, number_of_objects):
         gem_type = random.randrange(0, 100)
         x_coord = random.randrange(lower_width_bound, upper_width_bound)

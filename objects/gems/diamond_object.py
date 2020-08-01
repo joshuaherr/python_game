@@ -10,3 +10,6 @@ class DiamondObject(ObjectBase):
         super().__init__(1, str(image_path))
         self.price = 100
         self.weight = 3
+
+    def __str__(self):
+        return "Diamond"

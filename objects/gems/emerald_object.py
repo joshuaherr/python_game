@@ -10,3 +10,6 @@ class EmeraldObject(ObjectBase):
         super().__init__(1, str(image_path))
         self.price = 50
         self.weight = 2
+
+    def __str__(self):
+        return "Emerald"

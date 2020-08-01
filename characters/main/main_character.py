@@ -80,14 +80,17 @@ class MainCharacter(CharacterBase):
                     self.image = pygame.image.load(str(get_move_left_stand_image()))
             elif event.key == 105:
                 # inventory key pressed
-                if not self.is_inventory_open:
-                    self.is_inventory_open = True
+                if not self.inventory.is_inventory_open:
                     self.can_move = False
-                    ScreenComponents().add_screen_component(self.inventory)
+                    self.inventory.open_inventory()
                 else:
-                    self.is_inventory_open = False
                     self.can_move = True
-                    ScreenComponents().remove_screen_component(self.inventory.id)
+                    self.inventory.close_inventory()
+            elif event.key == 103:
+                # g pressed for get object
+                if len(self.inventory.inventory_items) >= 9:
+                    return
+                self.get_object()
 
     def update_image_movement(self):
         if self.movement_state == MovementStates.MOVE_DOWN_STAND:
@@ -150,13 +153,34 @@ class MainCharacter(CharacterBase):
             rect_copy.left = self.rect.left - speed_check
         if self.character_direction == Directions.RIGHT:
             rect_copy.right = self.rect.right + speed_check
-        relevant_comps = []
-        for comp in ScreenComponents().get_components():
-            if comp.density > 0 and comp.id != self.id:
-                relevant_comps.append(comp)
-        screen_rects = [comp.rect for comp in relevant_comps]
-        collisions = rect_copy.collidelist(screen_rects)
+        dense_comps = ScreenComponents().get_dense_components()
+        dense_without_char_rects = [comp.rect for comp in dense_comps if comp.id != self.id]
+        collisions = rect_copy.collidelist(dense_without_char_rects)
         if collisions == -1:
             return True
         else:
             return False
+
+    def get_object(self):
+        object_check = 4 * self.speed
+        rect_copy = copy.copy(self.rect)
+        if self.character_direction == Directions.DOWN:
+            rect_copy.bottom = self.rect.bottom + object_check
+        if self.character_direction == Directions.UP:
+            rect_copy.top = self.rect.top - object_check
+        if self.character_direction == Directions.LEFT:
+            rect_copy.left = self.rect.left - object_check
+        if self.character_direction == Directions.RIGHT:
+            rect_copy.right = self.rect.right + object_check
+        dense_comps = ScreenComponents().get_dense_components()
+        dense_without_char = [comp for comp in dense_comps if comp.id != self.id]
+        dense_without_char_rects = [comp.rect for comp in dense_without_char]
+        collisions = rect_copy.collidelist(dense_without_char_rects)
+        if collisions == -1:
+            return
+        other_object = dense_without_char[collisions]
+        other_object.set_layer(101)
+        self.inventory.add_item(other_object)
+        ScreenComponents().remove_screen_component(other_object.id)
+        print(f"Got item: {other_object}")
+

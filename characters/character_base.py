@@ -19,6 +19,7 @@ class CharacterBase:
         self.density = 1
         self.id = uuid.uuid4()
         self.health = 1
+        self.money = 0
 
     def get_layer(self):
         return self.CHAR_LAYER + self.sub_layer

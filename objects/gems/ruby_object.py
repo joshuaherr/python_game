@@ -10,3 +10,6 @@ class RubyObject(ObjectBase):
         super().__init__(1, str(image_path))
         self.price = 30
         self.weight = 1
+
+    def __str__(self):
+        return "Ruby"
