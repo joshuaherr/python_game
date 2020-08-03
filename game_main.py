@@ -31,7 +31,7 @@ ScreenComponents().add_screen_component(main_character)
 shopkeeper = ShopKeeper()
 shopkeeper.set_coordinates(400, 0)
 ScreenComponents().add_screen_component(shopkeeper)
-generate_gem_objects(15)
+generate_gem_objects(20)
 
 while 1:
     ScreenComponents().run_events()

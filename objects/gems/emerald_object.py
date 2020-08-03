@@ -12,4 +12,4 @@ class EmeraldObject(ObjectBase):
         self.weight = 2
 
     def __str__(self):
-        return "Emerald"
+        return "emerald"

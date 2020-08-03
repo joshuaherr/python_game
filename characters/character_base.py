@@ -20,7 +20,7 @@ class CharacterBase:
         self.id = uuid.uuid4()
         self.health = 1
         self.money = 0
-        self.has_text = False
+        self.has_action = False
 
     def get_layer(self):
         return self.CHAR_LAYER + self.sub_layer
@@ -59,4 +59,7 @@ class CharacterBase:
             self.rect = self.rect.move(move_speed)
 
     def handle_event(self, event):
+        pass
+
+    def do_action(self, player_id):
         pass

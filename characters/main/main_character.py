@@ -33,6 +33,7 @@ class MainCharacter(CharacterBase):
         self.is_inventory_open = False
         self.inventory = CharacterInventory(self.id)
         self.health = 100
+        self.action_disabled = False
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -187,6 +188,8 @@ class MainCharacter(CharacterBase):
         print(f"Got item: {other_object}")
 
     def do_action(self):
+        if self.action_disabled:
+            return
         rect_copy = self.get_rect_in_front()
         dense_comps = ScreenComponents().get_dense_components()
         dense_without_char = [comp for comp in dense_comps if comp.id != self.id]
@@ -197,9 +200,8 @@ class MainCharacter(CharacterBase):
         npc = dense_without_char[collisions]
         if not isinstance(npc, CharacterBase):
             return
-        if npc.has_text:
-            text = npc.get_text()
-            text_screen = TextScreen(self.id)
-            text_screen.set_text_characters(text)
-            text_screen.write_characters()
+        if npc.has_action:
+            npc.do_action(self.id)
 
+    def get_inventory_contents(self):
+        return self.inventory
