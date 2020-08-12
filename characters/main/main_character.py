@@ -17,7 +17,6 @@ from characters.main.main_character_constants import (
 from components.screen_components import ScreenComponents
 from characters.main.inventory import CharacterInventory
 from objects.object_base import ObjectBase
-from objects.HUD.text.text_screen import TextScreen
 import copy
 import pygame
 

@@ -3,7 +3,7 @@ import pygame
 from utilities.file_helpers import get_hud_screen_path
 from objects.object_base import ObjectBase
 from components.screen_components import ScreenComponents
-from objects.HUD.text.text_constants import text_object_map
+from objects.HUD.text.character import TextCharacter
 
 
 class CharacterInventory(ObjectBase):
@@ -55,7 +55,7 @@ class CharacterInventory(ObjectBase):
         title_y_offset = self.y_coordinate + 8
         for char_index in range(0, len(self.inventory_text)):
             title_x = title_x_offset + (char_index * 13)
-            char_comp = text_object_map[self.inventory_text[char_index]]()
+            char_comp = TextCharacter(self.inventory_text[char_index])
             char_comp.set_coordinates(title_x, title_y_offset)
             char_comp.set_layer(101)
             self.text_components.append(char_comp)

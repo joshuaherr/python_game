@@ -1,8 +1,8 @@
 from objects.object_base import ObjectBase
 from utilities.file_helpers import get_hud_text_path
 from components.screen_components import ScreenComponents
-from objects.HUD.text.text_constants import text_object_map
 from objects.HUD.text.exit_button import ExitButton
+from objects.HUD.text.character import TextCharacter
 
 import pygame
 
@@ -33,7 +33,7 @@ class TextScreen(ObjectBase):
         self.buttons.append(button)
 
     def write_characters(self):
-        # char length: 320 = 22 chars per line
+        # char length: 320 = 22 symbols per line
         ScreenComponents().add_screen_component(self)
         starting_x_coord = self.x_coordinate + 8
         starting_y_coord = self.y_coordinate + 5
@@ -41,7 +41,7 @@ class TextScreen(ObjectBase):
         x_offset = 0
         for index in range(0, len(self.text_characters)):
             curr_char = self.text_characters[index]
-            char_comp = text_object_map[curr_char]()
+            char_comp = TextCharacter(curr_char)
             if index % 22 == 0 and index != 0:
                 x_offset = 0
                 y_offset += 1

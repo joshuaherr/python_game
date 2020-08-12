@@ -1,6 +1,6 @@
 from components.screen_components import ScreenComponents
 from objects.HUD.text.arrow import Arrow
-from objects.HUD.text.text_constants import text_object_map
+from objects.HUD.text.character import TextCharacter
 
 
 class Button():
@@ -30,7 +30,7 @@ class Button():
         arrow_offset = 2
         for index in range(1, (len(self.button_text) + 1)):
             curr_char = self.button_text[index - 1]
-            comp = text_object_map[curr_char]()
+            comp = TextCharacter(curr_char)
             comp_x_coord = self.x_coordinate + (index * 14) + arrow_offset
             arrow_offset = 0
             comp.set_coordinates(comp_x_coord, self.y_coordinate)
