@@ -12,4 +12,4 @@ class SapphireObject(ObjectBase):
         self.weight = 2
 
     def __str__(self):
-        return "sapphire"
+        return "Sapphire"

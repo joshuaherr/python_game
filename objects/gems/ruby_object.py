@@ -12,4 +12,4 @@ class RubyObject(ObjectBase):
         self.weight = 1
 
     def __str__(self):
-        return "ruby"
+        return "Ruby"
