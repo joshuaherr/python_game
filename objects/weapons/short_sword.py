@@ -7,7 +7,7 @@ class ShortSword(ObjectBase):
 
     def __init__(self):
         image_path = get_weapons_path() / "short_sword1.png"
-        super().__init__(1, str(image_path))
+        super().__init__(20, str(image_path))
         self.price = 1000
         self.weight = 5
 

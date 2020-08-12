@@ -3,6 +3,8 @@ from utilities.file_helpers import get_shopkeeper_path
 from objects.HUD.text.text_screen import TextScreen
 from objects.HUD.text.button import Button
 from components.screen_components import ScreenComponents
+from objects.weapons.short_sword import ShortSword
+from objects.weapons.great_sword import GreatSword
 
 
 class ShopKeeper(CharacterBase):
@@ -96,7 +98,18 @@ class ShopKeeper(CharacterBase):
     def buy_short_sword(self):
         player = ScreenComponents().find_component(self.player_id)
         if player.money >= 1000:
-            print("you can buy a short sword.")
+            if len(player.inventory.inventory_items) < 9:
+                self.text_screen.close_text()
+                self.text_screen.set_text_characters("You bought a Short Sword.")
+                self.text_screen.write_characters()
+                player.money -= 1000
+                short_sword = ShortSword()
+                short_sword.set_layer(101)
+                player.inventory.add_item(short_sword)
+            else:
+                self.text_screen.close_text()
+                self.text_screen.set_text_characters("You do not have the inventory space.")
+                self.text_screen.write_characters()
         else:
             self.text_screen.close_text()
             self.text_screen.set_text_characters("You need 1000 money to buy a Short Sword.")
@@ -105,11 +118,19 @@ class ShopKeeper(CharacterBase):
     def buy_great_sword(self):
         player = ScreenComponents().find_component(self.player_id)
         if player.money >= 3000:
-            print("you can buy a great sword.")
+            if len(player.inventory.inventory_items) < 9:
+                self.text_screen.close_text()
+                self.text_screen.set_text_characters("You bought a Great sword.")
+                self.text_screen.write_characters()
+                player.money -= 3000
+                great_sword = GreatSword()
+                great_sword.set_layer(101)
+                player.inventory.add_item(great_sword)
         else:
             self.text_screen.close_text()
             self.text_screen.set_text_characters("You need 3000 money to buy a Great Sword.")
             self.text_screen.write_characters()
+            # self.buy_button_screen()
 
     def sell_item_screen(self, item):
         text = f"Sell {item} for {item.price}?"
@@ -135,7 +156,6 @@ class ShopKeeper(CharacterBase):
         sell_button.set_button_handle(self.sell_button_screen)
 
     def sell_item(self):
-
         if self.money >= self.selected_item.price:
             player = ScreenComponents().find_component(self.player_id)
             player.money += self.selected_item.price

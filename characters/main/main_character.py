@@ -32,6 +32,7 @@ class MainCharacter(CharacterBase):
         self.is_inventory_open = False
         self.inventory = CharacterInventory(self.id)
         self.health = 100
+        self.money = 10000
         self.action_disabled = False
 
     def handle_event(self, event):

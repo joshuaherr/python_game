@@ -3,6 +3,7 @@ from utilities.file_helpers import get_hud_text_path
 from components.screen_components import ScreenComponents
 from objects.HUD.text.exit_button import ExitButton
 from objects.HUD.text.character import TextCharacter
+from objects.HUD.text.text_constants import text_screen_sizes, text_screen_size_images
 
 import pygame
 
@@ -10,12 +11,12 @@ import pygame
 class TextScreen(ObjectBase):
     """Screen for displaying text."""
 
-    def __init__(self, player_id):
-        image_path = get_hud_text_path() / "text_screen_medium.png"
+    def __init__(self, player_id, text_screen_size="medium"):
+        screen_image = text_screen_size_images[text_screen_size]
+        image_path = get_hud_text_path() / screen_image
         super().__init__(15, str(image_path))
         self.text_characters = []
-        self.height = 150
-        self.width = 350
+        self.height, self.width = text_screen_sizes[text_screen_size]
         x_offset = int(self.width / 2)
         y_offset = int(self.height / 2)
         screen_height, screen_width = ScreenComponents().get_screen_size()
